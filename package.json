@@ -1,32 +1,47 @@
 {
-  "name": "job-tracker",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "lucide-react": "^0.475.0",
-    "next": "15.1.7",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwind-merge": "^3.0.2",
-    "tailwindcss-animate": "^1.0.7"
-  },
-  "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.1.7",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
-  }
+	"name": "job-tracker",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev --turbopack",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint",
+		"prepare": "simple-git-hooks",
+		"format": "prettier --write \"**/*.{js,ts,tsx,css,md,cjs,mjs,json,html}\""
+	},
+	"dependencies": {
+		"class-variance-authority": "^0.7.1",
+		"clsx": "^2.1.1",
+		"lucide-react": "^0.475.0",
+		"next": "15.1.7",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
+		"tailwind-merge": "^3.0.2",
+		"tailwindcss-animate": "^1.0.7"
+	},
+	"devDependencies": {
+		"@eslint/eslintrc": "^3",
+		"@trivago/prettier-plugin-sort-imports": "^5.2.2",
+		"@types/node": "^20",
+		"@types/react": "^19",
+		"@types/react-dom": "^19",
+		"eslint": "^9",
+		"eslint-config-next": "15.1.7",
+		"postcss": "^8",
+		"prettier": "^3.5.2",
+		"prettier-plugin-tailwindcss": "^0.6.11",
+		"pretty-quick": "^4.0.0",
+		"simple-git-hooks": "^2.11.1",
+		"tailwindcss": "^3.4.1",
+		"typescript": "^5"
+	},
+	"simple-git-hooks": {
+		"pre-commit": "pnpx pretty-quick --staged"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"simple-git-hooks"
+		]
+	}
 }
