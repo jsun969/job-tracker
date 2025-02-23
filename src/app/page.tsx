@@ -1,6 +1,6 @@
 import { Button } from '~/components/ui/button';
 
-export default function Home() {
+const HomePage = () => {
 	return (
 		<div className="flex h-dvh flex-col items-center justify-center gap-4">
 			<div className="text-4xl font-bold sm:text-6xl">💼 Job Tracker 📊</div>
@@ -10,4 +10,6 @@ export default function Home() {
 			</div>
 		</div>
 	);
-}
+};
+
+export default HomePage;
