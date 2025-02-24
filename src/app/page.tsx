@@ -1,6 +1,6 @@
 import { Button } from '~/components/ui/button';
 
-import { LoginButton } from './_components/LoginButton';
+import { LoginButton } from './_components/login-button';
 
 const HomePage = () => {
 	return (
