@@ -12,14 +12,12 @@ export const metadata: Metadata = {
 	description: 'Job Tracker is a simple app to track job applications.',
 };
 
-export default function RootLayout({
-	children,
-}: Readonly<{
-	children: React.ReactNode;
-}>) {
+const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 	return (
 		<html lang="en">
 			<body className={`${outfitSans.className} antialiased`}>{children}</body>
 		</html>
 	);
-}
+};
+
+export default RootLayout;
