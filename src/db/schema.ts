@@ -46,7 +46,7 @@ export const interviewsRelations = relations(interviewsTable, ({ one }) => ({
 
 // Better Auth
 
-export const userTable = pgTable('user', {
+export const usersTable = pgTable('user', {
 	id: text('id').primaryKey(),
 	name: text('name').notNull(),
 	email: text('email').notNull().unique(),
@@ -56,7 +56,7 @@ export const userTable = pgTable('user', {
 	updatedAt: timestamp('updated_at').notNull(),
 });
 
-export const sessionTable = pgTable('session', {
+export const sessionsTable = pgTable('session', {
 	id: text('id').primaryKey(),
 	expiresAt: timestamp('expires_at').notNull(),
 	token: text('token').notNull().unique(),
@@ -66,16 +66,16 @@ export const sessionTable = pgTable('session', {
 	userAgent: text('user_agent'),
 	userId: text('user_id')
 		.notNull()
-		.references(() => userTable.id, { onDelete: 'cascade' }),
+		.references(() => usersTable.id, { onDelete: 'cascade' }),
 });
 
-export const accountTable = pgTable('account', {
+export const accountsTable = pgTable('account', {
 	id: text('id').primaryKey(),
 	accountId: text('account_id').notNull(),
 	providerId: text('provider_id').notNull(),
 	userId: text('user_id')
 		.notNull()
-		.references(() => userTable.id, { onDelete: 'cascade' }),
+		.references(() => usersTable.id, { onDelete: 'cascade' }),
 	accessToken: text('access_token'),
 	refreshToken: text('refresh_token'),
 	idToken: text('id_token'),
