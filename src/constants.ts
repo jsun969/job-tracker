@@ -7,6 +7,7 @@ export const APPLICATION_STATUSES = [
 
 export const INTERVIEW_TYPES = [
 	'OA',
+	'HR',
 	'Behavioral',
 	'Technical',
 	'Other',
