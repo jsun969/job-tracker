@@ -8,12 +8,18 @@
 		"start": "next start",
 		"lint": "next lint",
 		"prepare": "simple-git-hooks",
-		"format": "prettier --write \"**/*.{js,ts,tsx,css,md,cjs,mjs,json,html}\""
+		"format": "prettier --write \"**/*.{js,ts,tsx,css,md,cjs,mjs,json,html}\"",
+		"db:push": "drizzle-kit push",
+		"db:generate": "drizzle-kit generate",
+		"db:migrate": "drizzle-kit migrate"
 	},
 	"dependencies": {
+		"@neondatabase/serverless": "^0.10.4",
 		"@radix-ui/react-slot": "^1.1.2",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
+		"dotenv": "^16.4.7",
+		"drizzle-orm": "^0.39.3",
 		"lucide-react": "^0.475.0",
 		"next": "15.1.7",
 		"react": "^19.0.0",
@@ -27,6 +33,7 @@
 		"@types/node": "^20",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
+		"drizzle-kit": "^0.30.4",
 		"eslint": "^9",
 		"eslint-config-next": "15.1.7",
 		"postcss": "^8",
@@ -35,6 +42,7 @@
 		"pretty-quick": "^4.0.0",
 		"simple-git-hooks": "^2.11.1",
 		"tailwindcss": "^3.4.1",
+		"tsx": "^4.19.3",
 		"typescript": "^5"
 	},
 	"simple-git-hooks": {
