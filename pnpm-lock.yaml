@@ -10,6 +10,9 @@ importers:
       '@neondatabase/serverless':
         specifier: ^0.10.4
         version: 0.10.4
+      '@next/env':
+        specifier: ^15.1.7
+        version: 15.1.7
       '@radix-ui/react-slot':
         specifier: ^1.1.2
         version: 1.1.2(@types/react@19.0.10)(react@19.0.0)
@@ -22,9 +25,6 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      dotenv:
-        specifier: ^16.4.7
-        version: 16.4.7
       drizzle-orm:
         specifier: ^0.39.3
         version: 0.39.3(@neondatabase/serverless@0.10.4)(@prisma/client@5.22.0(prisma@5.22.0))(@types/better-sqlite3@7.6.12)(@types/pg@8.11.6)(better-sqlite3@11.8.1)(kysely@0.27.5)(prisma@5.22.0)
@@ -2068,13 +2068,6 @@ packages:
         integrity: sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==,
       }
     engines: { node: '>=0.10.0' }
-
-  dotenv@16.4.7:
-    resolution:
-      {
-        integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==,
-      }
-    engines: { node: '>=12' }
 
   drizzle-kit@0.30.4:
     resolution:
@@ -5599,8 +5592,6 @@ snapshots:
   doctrine@2.1.0:
     dependencies:
       esutils: 2.0.3
-
-  dotenv@16.4.7: {}
 
   drizzle-kit@0.30.4:
     dependencies:

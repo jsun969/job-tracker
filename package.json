@@ -15,11 +15,11 @@
 	},
 	"dependencies": {
 		"@neondatabase/serverless": "^0.10.4",
+		"@next/env": "^15.1.7",
 		"@radix-ui/react-slot": "^1.1.2",
 		"better-auth": "^1.1.19",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
-		"dotenv": "^16.4.7",
 		"drizzle-orm": "^0.39.3",
 		"lucide-react": "^0.475.0",
 		"next": "15.1.7",
