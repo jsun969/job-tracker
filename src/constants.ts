@@ -14,3 +14,11 @@ export const INTERVIEW_TYPES = [
 	'Technical',
 	'Other',
 ] as const;
+
+export const COMPANY_TYPES = [
+	'FAANG',
+	'Big Tech',
+	'HFT',
+	'Startup',
+	'Other',
+] as const;

@@ -10,12 +10,18 @@ import {
 	uuid,
 } from 'drizzle-orm/pg-core';
 
-import { APPLICATION_STATUSES, INTERVIEW_TYPES } from '~/constants';
+import {
+	APPLICATION_STATUSES,
+	COMPANY_TYPES,
+	INTERVIEW_TYPES,
+} from '~/constants';
 
 export const applicationStatusEnum = pgEnum('status', APPLICATION_STATUSES);
+export const companyTypeEnum = pgEnum('company_type', COMPANY_TYPES);
 export const applicationsTable = pgTable('applications', {
 	id: uuid().defaultRandom().primaryKey(),
 	company: text().notNull(),
+	companyType: companyTypeEnum().notNull(),
 	jobTitle: text().notNull(),
 	origin: text().notNull(),
 	location: text().notNull(),
@@ -23,13 +29,20 @@ export const applicationsTable = pgTable('applications', {
 	appliedDate: date().notNull(),
 	closedDate: date(),
 	status: applicationStatusEnum().default('ongoing'),
+	userId: text().notNull(),
 });
 export const applicationsRelations = relations(
 	applicationsTable,
-	({ many }) => ({ interviews: many(interviewsTable) }),
+	({ many, one }) => ({
+		interviews: many(interviewsTable),
+		user: one(usersTable, {
+			fields: [applicationsTable.userId],
+			references: [usersTable.id],
+		}),
+	}),
 );
 
-export const interviewTypeEnum = pgEnum('type', INTERVIEW_TYPES);
+export const interviewTypeEnum = pgEnum('interview_type', INTERVIEW_TYPES);
 export const interviewsTable = pgTable('interviews', {
 	id: smallserial().primaryKey(),
 	date: timestamp().notNull(),
@@ -55,6 +68,9 @@ export const usersTable = pgTable('user', {
 	createdAt: timestamp('created_at').notNull(),
 	updatedAt: timestamp('updated_at').notNull(),
 });
+export const usersRelations = relations(usersTable, ({ many }) => ({
+	applications: many(applicationsTable),
+}));
 
 export const sessionsTable = pgTable('session', {
 	id: text('id').primaryKey(),
