@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 
 import { Button } from '~/components/ui/button';
+import { GITHUB_LINK } from '~/constants';
 import { getUser } from '~/utils/get-user';
 
 import { LoginButton } from './_components/login-button';
@@ -14,7 +15,9 @@ const HomePage = async () => {
 			<div className="text-4xl font-bold sm:text-6xl">💼 Job Tracker 📊</div>
 			<div className="flex gap-2">
 				<LoginButton />
-				<Button variant="outline">GitHub</Button>
+				<Button variant="outline" asChild className="cursor-pointer">
+					<a href={GITHUB_LINK}>GitHub</a>
+				</Button>
 			</div>
 		</div>
 	);

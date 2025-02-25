@@ -13,9 +13,11 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
+import { FaGithub as GitHubIcon } from 'react-icons/fa6';
 
 import { NavProjects } from '~/app/dashboard/_components/nav-projects';
 import { NavUser } from '~/app/dashboard/_components/nav-user';
+import { Button } from '~/components/ui/button';
 import {
 	Sidebar,
 	SidebarContent,
@@ -27,6 +29,7 @@ import {
 	SidebarMenuItem,
 	SidebarRail,
 } from '~/components/ui/sidebar';
+import { GITHUB_LINK } from '~/constants';
 
 // This is sample data.
 const data = {
@@ -101,6 +104,11 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
 				<NavProjects projects={data.projects} />
 			</SidebarContent>
 			<SidebarFooter>
+				<Button asChild variant="outline">
+					<a href={GITHUB_LINK}>
+						<GitHubIcon /> GitHub
+					</a>
+				</Button>
 				<NavUser user={props.user} />
 			</SidebarFooter>
 			<SidebarRail />
