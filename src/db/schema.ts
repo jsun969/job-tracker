@@ -48,7 +48,9 @@ export const interviewsTable = pgTable('interviews', {
 	date: timestamp().notNull(),
 	type: interviewTypeEnum().notNull(),
 	note: text(),
-	applicationId: uuid().notNull(),
+	applicationId: uuid()
+		.notNull()
+		.references(() => applicationsTable.id, { onDelete: 'cascade' }),
 });
 export const interviewsRelations = relations(interviewsTable, ({ one }) => ({
 	application: one(applicationsTable, {
