@@ -1,6 +1,6 @@
 'use client';
 
-import { LogOut } from 'lucide-react';
+import { LogOut, User } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
@@ -34,11 +34,11 @@ export function NavUser({
 	return (
 		<SidebarMenu>
 			<SidebarMenuItem>
-				<div className="flex items-center gap-2 rounded-md bg-sidebar-accent p-2 text-sidebar-accent-foreground group-data-[collapsible=icon]:!p-0 [&>span:last-child]:truncate">
+				<div className="flex items-center gap-2 py-2 group-data-[collapsible=icon]:!p-0 [&>span:last-child]:truncate">
 					<Avatar className="h-8 w-8 rounded-lg group-data-[collapsible=icon]:hidden">
 						<AvatarImage src={user.avatar} alt={user.name} />
 						<AvatarFallback className="rounded-lg">
-							{user.name.slice(0, 2).toUpperCase()}
+							<User className="size-4" />
 						</AvatarFallback>
 					</Avatar>
 					<div className="grid flex-1 text-left text-sm leading-tight group-data-[collapsible=icon]:hidden">
@@ -56,7 +56,7 @@ export function NavUser({
 								<LogOut className="size-4" />
 							</Button>
 						</TooltipTrigger>
-						<TooltipContent>Logout</TooltipContent>
+						<TooltipContent side="right">Logout</TooltipContent>
 					</Tooltip>
 				</div>
 			</SidebarMenuItem>

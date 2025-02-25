@@ -45,6 +45,30 @@ export const NAV_ITEMS = [
 	{ name: 'Job Board', url: '/dashboard/job-board', icon: Rss },
 	{ name: 'Settings', url: '/dashboard/settings', icon: Settings },
 ];
+const NavPages = () => {
+	const pathname = usePathname();
+
+	return (
+		<SidebarGroup>
+			<SidebarMenu>
+				{NAV_ITEMS.map(({ name, icon: Icon, url }) => (
+					<SidebarMenuItem key={name}>
+						<SidebarMenuButton
+							tooltip={name}
+							asChild
+							isActive={pathname === url}
+						>
+							<Link href={url}>
+								<Icon />
+								<span>{name}</span>
+							</Link>
+						</SidebarMenuButton>
+					</SidebarMenuItem>
+				))}
+			</SidebarMenu>
+		</SidebarGroup>
+	);
+};
 
 const AppSidebarHeader = () => {
 	return (
@@ -75,41 +99,23 @@ type User = {
 type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
 	user: User;
 };
-export function AppSidebar({ ...props }: AppSidebarProps) {
-	const pathname = usePathname();
-
+export function AppSidebar({ user, ...props }: AppSidebarProps) {
 	return (
 		<Sidebar collapsible="icon" {...props}>
 			<AppSidebarHeader />
 			<SidebarContent>
-				<SidebarGroup>
-					<SidebarMenu>
-						{NAV_ITEMS.map(({ name, icon: Icon, url }) => (
-							<SidebarMenuItem key={name}>
-								<SidebarMenuButton
-									tooltip={name}
-									asChild
-									isActive={pathname === url}
-								>
-									<Link href={url}>
-										<Icon />
-										<span>{name}</span>
-									</Link>
-								</SidebarMenuButton>
-							</SidebarMenuItem>
-						))}
-					</SidebarMenu>
-				</SidebarGroup>
+				<NavPages />
 				{/* TODO: Upcoming interviews */}
 				<NavProjects projects={data.projects} />
 			</SidebarContent>
 			<SidebarFooter>
 				<Button asChild variant="outline">
 					<a href={GITHUB_LINK}>
-						<GitHubIcon /> GitHub
+						<GitHubIcon />
+						<span className="group-data-[collapsible=icon]:hidden">GitHub</span>
 					</a>
 				</Button>
-				<NavUser user={props.user} />
+				<NavUser user={user} />
 			</SidebarFooter>
 			<SidebarRail />
 		</Sidebar>
