@@ -1,5 +1,7 @@
+import { WIP } from '../_components/wip';
+
 const JobBoardPage = () => {
-	return <div>WIP</div>;
+	return <WIP />;
 };
 
 export default JobBoardPage;
