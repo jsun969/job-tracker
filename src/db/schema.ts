@@ -16,19 +16,23 @@ import {
 	INTERVIEW_TYPES,
 } from '~/constants';
 
-export const applicationStatusEnum = pgEnum('status', APPLICATION_STATUSES);
+export const applicationStatusEnum = pgEnum(
+	'application_status',
+	APPLICATION_STATUSES,
+);
 export const companyTypeEnum = pgEnum('company_type', COMPANY_TYPES);
 export const applicationsTable = pgTable('applications', {
 	id: uuid().defaultRandom().primaryKey(),
 	company: text().notNull(),
 	companyType: companyTypeEnum().notNull(),
 	jobTitle: text().notNull(),
-	origin: text().notNull(),
+	source: text().notNull(),
 	location: text().notNull(),
 	referred: boolean().notNull(),
-	appliedDate: date().notNull(),
-	closedDate: date(),
-	status: applicationStatusEnum().default('ongoing'),
+	appliedDate: date({ mode: 'date' }).notNull(),
+	closedDate: date({ mode: 'date' }),
+	status: applicationStatusEnum().default('Ongoing').notNull(),
+	note: text(),
 	userId: text().notNull(),
 });
 export const applicationsRelations = relations(

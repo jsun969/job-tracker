@@ -10,7 +10,7 @@ import {
 } from './schema';
 
 const SEED_USER_ID = process.env.SEED_USER_ID ?? 'seed-user-id';
-const APPLICATION_ORIGINS = [
+const APPLICATION_SOURCES = [
 	'LinkedIn',
 	'Seek',
 	'Indeed',
@@ -50,16 +50,17 @@ const appSeed = async () => {
 				company: f.companyName(),
 				jobTitle: f.jobTitle(),
 				location: f.city(),
-				status: f.default({ defaultValue: 'ongoing' }),
+				status: f.default({ defaultValue: 'Ongoing' }),
 				userId: f.default({ defaultValue: SEED_USER_ID }),
 				closedDate: f.default({ defaultValue: null }),
 				appliedDate: f.date({
-					minDate: new Date(2025, 1, 1),
-					maxDate: new Date(2025, 2, 1),
+					minDate: '2025-01-01',
+					maxDate: '2025-02-01',
 				}),
-				origin: f.valuesFromArray({
-					values: APPLICATION_ORIGINS,
+				source: f.valuesFromArray({
+					values: APPLICATION_SOURCES,
 				}),
+				note: f.default({ defaultValue: null }),
 			},
 			with: { interviewsTable: 3 },
 			count: 66,
@@ -71,8 +72,8 @@ const appSeed = async () => {
 					values: INTERVIEW_TYPES as unknown as string[],
 				}),
 				date: f.date({
-					minDate: new Date(2025, 2, 2),
-					maxDate: new Date(2025, 3, 12),
+					minDate: '2025-02-02',
+					maxDate: '2025-03-12',
 				}),
 				note: f.loremIpsum({ sentencesCount: 2 }),
 			},
