@@ -12,6 +12,7 @@ import {
 } from '~/components/ui/card';
 import { APPLICATION_PROCESS_ICONS, COMPANY_TYPE_COLORS } from '~/constants';
 import { time } from '~/lib/time';
+import { getFavicon } from '~/utils/get-favicon';
 import { humanizeDurationFromNow } from '~/utils/humanize-duration-from-now';
 import { isLink } from '~/utils/is-link';
 import { cn } from '~/utils/ui';
@@ -53,7 +54,17 @@ export const ApplicationCard = ({
 						<Badge variant="secondary">{application.source}</Badge>
 					)}
 				</div>
-				<CardTitle>{application.company}</CardTitle>
+				<CardTitle className="flex items-center gap-1 text-lg">
+					{isLink(application.source) && (
+						// eslint-disable-next-line @next/next/no-img-element
+						<img
+							src={getFavicon(application.source)}
+							alt="Company Logo"
+							className="size-5"
+						/>
+					)}
+					{application.company}
+				</CardTitle>
 				<CardDescription className="grid grid-cols-[auto,_1fr] items-center gap-x-1">
 					<IdCard className="size-4" /> {application.jobTitle}
 					<MapPin className="size-4" /> {application.location}
