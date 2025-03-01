@@ -61,6 +61,7 @@ const appSeed = async () => {
 					values: APPLICATION_SOURCES,
 				}),
 				note: f.default({ defaultValue: null }),
+				shared: f.default({ defaultValue: false }),
 			},
 			with: { interviewsTable: 3 },
 			count: 66,
