@@ -1,4 +1,5 @@
 import {
+	CalendarArrowUp,
 	CircleSlash,
 	FileCode,
 	FilePen,
@@ -6,9 +7,11 @@ import {
 	MessageCircleMore,
 	MessageCircleQuestion,
 	PencilLine,
+	RefreshCw,
 	Search,
 	Speech,
 	Sticker,
+	X,
 } from 'lucide-react';
 
 export const GITHUB_LINK = 'https://github.com/jsun969/job-tracker';
@@ -53,7 +56,7 @@ export const APPLICATION_PROCESS_ICONS = {
 	Apply: FilePen,
 	Ongoing: Search,
 	Ghosted: Ghost,
-	Rejected: CircleSlash,
+	Rejected: X,
 	Offer: Sticker,
 	OA: PencilLine,
 	HR: Speech,
@@ -61,3 +64,17 @@ export const APPLICATION_PROCESS_ICONS = {
 	Technical: FileCode,
 	Other: MessageCircleQuestion,
 } as const satisfies Record<ApplicationProcess, unknown>;
+
+export const APPLICATION_CATEGORIES = [
+	'Upcoming',
+	'Ongoing',
+	'Offer',
+	'Closed',
+] as const;
+export type ApplicationCategory = (typeof APPLICATION_CATEGORIES)[number];
+export const APPLICATION_CATEGORY_ICONS = {
+	Upcoming: CalendarArrowUp,
+	Ongoing: RefreshCw,
+	Offer: Sticker,
+	Closed: CircleSlash,
+} as const satisfies Record<ApplicationCategory, unknown>;
