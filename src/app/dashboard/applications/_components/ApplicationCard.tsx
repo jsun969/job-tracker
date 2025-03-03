@@ -1,6 +1,7 @@
 'use client';
 
 import { ExternalLink, IdCard, MapPin } from 'lucide-react';
+import Link from 'next/link';
 
 import { Badge, badgeVariants } from '~/components/ui/badge';
 import {
@@ -28,62 +29,69 @@ export const ApplicationCard = ({
 		APPLICATION_PROCESS_ICONS[application.mostRecentStatus.status];
 
 	return (
-		<Card className="cursor-pointer transition-shadow hover:shadow-lg">
-			<CardHeader>
-				<div className="flex justify-between">
-					<Badge
-						style={{
-							backgroundColor: COMPANY_TYPE_COLORS[application.companyType],
-						}}
+		<Card className="flex flex-col justify-center transition-shadow has-[>a:hover]:shadow-lg">
+			<div className="flex justify-between px-6 pb-2 pt-6">
+				<Badge
+					style={{
+						backgroundColor: COMPANY_TYPE_COLORS[application.companyType],
+					}}
+				>
+					{application.companyType}
+				</Badge>
+				{isLink(application.source) ? (
+					<a
+						className={cn(
+							badgeVariants({ variant: 'secondary' }),
+							'gap-1 hover:underline',
+						)}
+						href={application.source}
+						target="_blank"
 					>
-						{application.companyType}
-					</Badge>
-					{isLink(application.source) ? (
-						<a
-							className={cn(
-								badgeVariants({ variant: 'secondary' }),
-								'gap-1 hover:underline',
-							)}
-							href={application.source}
-							target="_blank"
-						>
-							Source
-							<ExternalLink className="size-4" />
-						</a>
-					) : (
-						<Badge variant="secondary">{application.source}</Badge>
-					)}
-				</div>
-				<CardTitle className="flex items-center gap-1 text-lg">
-					{isLink(application.source) && (
-						// eslint-disable-next-line @next/next/no-img-element
-						<img
-							src={getFavicon(application.source)}
-							alt="Company Logo"
-							className="size-5"
-						/>
-					)}
-					{application.company}
-				</CardTitle>
-				<CardDescription className="grid grid-cols-[auto,_1fr] items-center gap-x-1">
-					<IdCard className="size-4" /> {application.jobTitle}
-					<MapPin className="size-4" /> {application.location}
-				</CardDescription>
-			</CardHeader>
-			<CardContent className="flex items-center gap-2 text-sm">
-				<div className="h-fit w-fit rounded-full bg-secondary p-2 text-secondary-foreground">
-					<ProcessIcon className="size-6" />
-				</div>
-				<div>
-					<div className="font-semibold">
-						{application.mostRecentStatus.status}
+						Source
+						<ExternalLink className="size-4" />
+					</a>
+				) : (
+					<Badge variant="secondary">{application.source}</Badge>
+				)}
+			</div>
+			<Link
+				href={`/dashboard/applications/${application.id}`}
+				className="block"
+			>
+				<CardHeader className="pt-0">
+					<CardTitle className="flex items-center gap-1 text-lg">
+						{isLink(application.source) && (
+							// eslint-disable-next-line @next/next/no-img-element
+							<img
+								src={getFavicon(application.source)}
+								alt="Company Logo"
+								className="size-5"
+							/>
+						)}
+						{application.company}
+					</CardTitle>
+					<CardDescription className="grid grid-cols-[auto,_1fr] items-center gap-x-1">
+						<IdCard className="size-4" /> {application.jobTitle}
+						<MapPin className="size-4" /> {application.location}
+					</CardDescription>
+				</CardHeader>
+				<CardContent className="flex items-center gap-2 text-sm">
+					<div className="h-fit w-fit rounded-full bg-secondary p-2 text-secondary-foreground">
+						<ProcessIcon className="size-6" />
 					</div>
-					<div className="text-muted-foreground">
-						{time(application.mostRecentStatus.date).format('YYYY-MM-DD HH:mm')}{' '}
-						({humanizeDurationFromNow(application.mostRecentStatus.date)})
+					<div>
+						<div className="font-semibold">
+							{application.mostRecentStatus.status}
+						</div>
+						<div className="text-muted-foreground">
+							{time(application.mostRecentStatus.date).format(
+								'YYYY-MM-DD HH:mm',
+							)}{' '}
+							({humanizeDurationFromNow(application.mostRecentStatus.date)})
+						</div>
 					</div>
-				</div>
-			</CardContent>
+				</CardContent>
+			</Link>
 		</Card>
 	);
 };
