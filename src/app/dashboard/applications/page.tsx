@@ -3,7 +3,7 @@ import { APPLICATION_CATEGORY_ICONS, ApplicationCategory } from '~/constants';
 import { getUser } from '~/utils/get-user';
 
 import { getCategorizedApplications } from '../_data/applications';
-import { ApplicationCard } from './_components/ApplicationCard';
+import { ApplicationCard } from './_components/applicaiton-card';
 
 const ApplicationsPage = async () => {
 	const user = await getUser();
