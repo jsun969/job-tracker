@@ -2,48 +2,17 @@ import { Separator } from '~/components/ui/separator';
 import { APPLICATION_CATEGORY_ICONS, ApplicationCategory } from '~/constants';
 import { getUser } from '~/utils/get-user';
 
-import { Application, getApplication } from '../_data/applications';
+import { getCategorizedApplications } from '../_data/applications';
 import { ApplicationCard } from './_components/ApplicationCard';
-
-type CategorizedApplications = Record<ApplicationCategory, Array<Application>>;
 
 const ApplicationsPage = async () => {
 	const user = await getUser();
 	if (!user) return null;
-	const applications = await getApplication(user.id);
 
-	const categorizedApplications: CategorizedApplications = applications.reduce(
-		(acc, application) => {
-			let category: ApplicationCategory = 'Closed';
-			if (
-				application.status === 'Rejected' ||
-				application.status === 'Ghosted'
-			) {
-				category = 'Closed';
-			} else if (application.status === 'Offer') {
-				category = 'Offer';
-			} else {
-				const date = application.mostRecentStatus.date;
-				const now = new Date();
-				if (date > now) {
-					category = 'Upcoming';
-				} else {
-					category = 'Ongoing';
-				}
-			}
-			acc[category].push(application);
-			return acc;
-		},
-		{
-			Upcoming: [],
-			Ongoing: [],
-			Offer: [],
-			Closed: [],
-		} as CategorizedApplications,
-	);
+	const categorizedApplications = await getCategorizedApplications(user.id);
 
 	return (
-		<div className="space-y-8">
+		<div>
 			{Object.entries(categorizedApplications).map(
 				([category, applications]) => {
 					const Icon =
@@ -51,13 +20,13 @@ const ApplicationsPage = async () => {
 					return (
 						<div key={category}>
 							<h2
-								className="flex items-center gap-2 text-2xl font-bold"
+								className="flex scroll-mt-16 items-center gap-2 pt-4 text-2xl font-bold"
 								id={category}
 							>
 								<Icon className="size-6" /> {category}
 							</h2>
 							<Separator className="my-4" />
-							<div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+							<div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 								{applications.map((application) => (
 									<ApplicationCard
 										application={application}

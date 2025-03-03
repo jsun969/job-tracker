@@ -1,9 +1,9 @@
 import { cache } from 'react';
 
-import { ApplicationProcess } from '~/constants';
+import { ApplicationCategory, ApplicationProcess } from '~/constants';
 import { db } from '~/db';
 
-export const getApplication = cache(async (userId: string) => {
+const _getApplication = async (userId: string) => {
 	const applications = await db.query.applicationsTable.findMany({
 		where: (applications, { eq }) => eq(applications.userId, userId),
 		with: {
@@ -30,6 +30,51 @@ export const getApplication = cache(async (userId: string) => {
 			(a, b) =>
 				b.mostRecentStatus.date.getTime() - a.mostRecentStatus.date.getTime(),
 		);
-});
+};
+export const getApplication = cache(_getApplication);
 
 export type Application = Awaited<ReturnType<typeof getApplication>>[number];
+
+export type CategorizedApplications = Record<
+	ApplicationCategory,
+	Array<Application>
+>;
+const _getCategorizedApplications = async (userId: string) => {
+	const applications = await _getApplication(userId);
+
+	const categorizedApplications: CategorizedApplications = applications.reduce(
+		(acc, application) => {
+			let category: ApplicationCategory = 'Closed';
+			if (
+				application.status === 'Rejected' ||
+				application.status === 'Ghosted'
+			) {
+				category = 'Closed';
+			} else if (application.status === 'Offer') {
+				category = 'Offer';
+			} else {
+				const date = application.mostRecentStatus.date;
+				const now = new Date();
+				if (date > now) {
+					category = 'Upcoming';
+				} else {
+					category = 'Ongoing';
+				}
+			}
+			acc[category].push(application);
+			return acc;
+		},
+		{
+			Upcoming: [],
+			Ongoing: [],
+			Offer: [],
+			Closed: [],
+		} as CategorizedApplications,
+	);
+	categorizedApplications.Upcoming.sort(
+		(a, b) =>
+			a.mostRecentStatus.date.getTime() - b.mostRecentStatus.date.getTime(),
+	);
+	return categorizedApplications;
+};
+export const getCategorizedApplications = cache(_getCategorizedApplications);
