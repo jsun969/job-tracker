@@ -33,6 +33,8 @@ export const ApplicationCard = ({
 				>
 					{application.companyType}
 				</Badge>
+				{/* TODO: Show shared status, this solution is not visually appealing  */}
+				{/* {application.shared && <Badge>Shared</Badge>} */}
 				{isLink(application.source) ? (
 					<a
 						className={cn(
