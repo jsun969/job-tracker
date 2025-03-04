@@ -34,7 +34,7 @@ const DashboardLayout = async ({
 						</div>
 					</div>
 				</header>
-				<div className="p-4 pt-0">{children}</div>
+				<div className="p-4">{children}</div>
 			</SidebarInset>
 		</SidebarProvider>
 	);
