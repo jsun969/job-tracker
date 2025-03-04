@@ -5,7 +5,11 @@ import Link from 'next/link';
 
 import { Badge, badgeVariants } from '~/components/ui/badge';
 import { Card, CardDescription, CardTitle } from '~/components/ui/card';
-import { APPLICATION_PROCESS_ICONS, COMPANY_TYPE_COLORS } from '~/constants';
+import {
+	APPLICATION_PROCESS_ICONS,
+	COMPANY_TYPE_COLORS,
+	TIME_FORMAT,
+} from '~/constants';
 import { time } from '~/lib/time';
 import { getFavicon } from '~/utils/get-favicon';
 import { humanizeDurationFromNow } from '~/utils/humanize-duration-from-now';
@@ -82,8 +86,8 @@ export const ApplicationCard = ({
 						{application.mostRecentStatus.status}
 					</div>
 					<div className="text-muted-foreground">
-						{time(application.mostRecentStatus.date).format('YYYY-MM-DD HH:mm')}{' '}
-						({humanizeDurationFromNow(application.mostRecentStatus.date)})
+						{time(application.mostRecentStatus.date).format(TIME_FORMAT)} (
+						{humanizeDurationFromNow(application.mostRecentStatus.date)})
 					</div>
 				</div>
 			</Link>

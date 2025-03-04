@@ -60,8 +60,10 @@ const appSeed = async () => {
 				source: f.valuesFromArray({
 					values: APPLICATION_SOURCES,
 				}),
-				note: f.default({ defaultValue: null }),
-				shared: f.default({ defaultValue: false }),
+				note: f.weightedRandom([
+					{ weight: 0.7, value: f.loremIpsum({ sentencesCount: 2 }) },
+					{ weight: 0.3, value: f.default({ defaultValue: '' }) },
+				]),
 			},
 			with: { interviewsTable: 3 },
 			count: 66,

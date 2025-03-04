@@ -32,7 +32,7 @@ export const applicationsTable = pgTable('applications', {
 	appliedDate: date({ mode: 'date' }).notNull(),
 	closedDate: date({ mode: 'date' }),
 	status: applicationStatusEnum().default('Ongoing').notNull(),
-	note: text(),
+	note: text().default('').notNull(),
 	shared: boolean().default(false).notNull(),
 	userId: text().notNull(),
 });

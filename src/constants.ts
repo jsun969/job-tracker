@@ -78,3 +78,5 @@ export const APPLICATION_CATEGORY_ICONS = {
 	Offer: Sticker,
 	Closed: CircleSlash,
 } as const satisfies Record<ApplicationCategory, unknown>;
+
+export const TIME_FORMAT = 'YYYY-MM-DD HH:mm';
