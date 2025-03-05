@@ -24,6 +24,7 @@ import {
 
 export const NAV_ITEMS = [
 	{ name: 'Dashboard', url: '/dashboard', icon: LayoutDashboard },
+	// TODO: Show amount for application and categories
 	{
 		name: 'Applications',
 		url: '/dashboard/applications',

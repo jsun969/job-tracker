@@ -1,10 +1,9 @@
 'use client';
 
-import { BriefcaseBusiness, Frame, Map, PieChart } from 'lucide-react';
+import { BriefcaseBusiness } from 'lucide-react';
 import * as React from 'react';
 import { FaGithub as GitHubIcon } from 'react-icons/fa6';
 
-import { NavProjects } from '~/app/dashboard/_components/nav-projects';
 import { NavUser } from '~/app/dashboard/_components/nav-user';
 import { Button } from '~/components/ui/button';
 import {
@@ -22,13 +21,13 @@ import { GITHUB_LINK } from '~/constants';
 import { NavPages } from './nav-pages';
 
 // This is sample data.
-const data = {
-	projects: [
-		{ name: 'Design Engineering', url: '#', icon: Frame },
-		{ name: 'Sales & Marketing', url: '#', icon: PieChart },
-		{ name: 'Travel', url: '#', icon: Map },
-	],
-};
+// const data = {
+// 	projects: [
+// 		{ name: 'Design Engineering', url: '#', icon: Frame },
+// 		{ name: 'Sales & Marketing', url: '#', icon: PieChart },
+// 		{ name: 'Travel', url: '#', icon: Map },
+// 	],
+// };
 
 const AppSidebarHeader = () => {
 	return (
@@ -66,7 +65,7 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
 			<SidebarContent>
 				<NavPages />
 				{/* TODO: Upcoming interviews */}
-				<NavProjects projects={data.projects} />
+				{/* <NavProjects projects={data.projects} /> */}
 			</SidebarContent>
 			<SidebarFooter>
 				<Button asChild variant="outline">
