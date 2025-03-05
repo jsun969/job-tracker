@@ -16,12 +16,12 @@ import { humanizeDurationFromNow } from '~/utils/humanize-duration-from-now';
 import { isLink } from '~/utils/is-link';
 import { cn } from '~/utils/ui';
 
-import { Application } from '../../_data/applications';
+import { ApplicationWithMostRecentStatus } from '../../_data/applications';
 
 export const ApplicationCard = ({
 	application,
 }: {
-	application: Application;
+	application: ApplicationWithMostRecentStatus;
 }) => {
 	const ProcessIcon =
 		APPLICATION_PROCESS_ICONS[application.mostRecentStatus.status];

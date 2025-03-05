@@ -1,8 +1,8 @@
-import { Application } from '../../_data/applications';
+import { ApplicationWithMostRecentStatus } from '../../_data/applications';
 import { ApplicationCard } from './applicaiton-card';
 
 interface ApplicationsProps {
-	applications: Array<Application>;
+	applications: Array<ApplicationWithMostRecentStatus>;
 }
 
 export const Applications = ({ applications }: ApplicationsProps) => {

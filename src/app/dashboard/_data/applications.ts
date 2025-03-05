@@ -33,11 +33,13 @@ const _getApplication = async (userId: string) => {
 };
 export const getApplication = cache(_getApplication);
 
-export type Application = Awaited<ReturnType<typeof getApplication>>[number];
+export type ApplicationWithMostRecentStatus = Awaited<
+	ReturnType<typeof getApplication>
+>[number];
 
 export type CategorizedApplications = Record<
 	ApplicationCategory,
-	Array<Application>
+	Array<ApplicationWithMostRecentStatus>
 >;
 const _getCategorizedApplications = async (userId: string) => {
 	const applications = await _getApplication(userId);
