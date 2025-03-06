@@ -19,14 +19,17 @@ type Interview = InferSelectModel<typeof interviewsTable>;
 interface TimelineItemProps {
 	interview: Omit<Interview, 'type'> & { type: ApplicationProcess };
 	start?: boolean;
-	showActions?: boolean;
+	showEdit?: boolean;
+	showDelete?: boolean;
 }
 export const InterviewTimelineItem = ({
 	start,
 	interview,
-	showActions,
+	showEdit,
+	showDelete,
 }: TimelineItemProps) => {
 	const ProcessIcon = APPLICATION_PROCESS_ICONS[interview.type];
+	const showActions = showEdit || showDelete;
 
 	return (
 		<li
@@ -41,12 +44,16 @@ export const InterviewTimelineItem = ({
 				<div>({humanizeDurationFromNow(interview.date)})</div>
 				{showActions && (
 					<div className="mt-2 flex gap-1">
-						<Button size="smIcon" variant="danger">
-							<Trash2 />
-						</Button>
-						<Button size="smIcon" variant="outline">
-							<Edit />
-						</Button>
+						{showDelete && (
+							<Button size="smIcon" variant="danger">
+								<Trash2 />
+							</Button>
+						)}
+						{showEdit && (
+							<Button size="smIcon" variant="outline">
+								<Edit />
+							</Button>
+						)}
 					</div>
 				)}
 			</div>
@@ -91,7 +98,8 @@ export const InterviewTimeline = ({
 				<InterviewTimelineItem
 					key={interview.id}
 					interview={interview}
-					showActions={isApplicant}
+					showEdit={isApplicant}
+					showDelete={isApplicant}
 				/>
 			))}
 			<InterviewTimelineItem
@@ -103,6 +111,7 @@ export const InterviewTimeline = ({
 					applicationId: 'N/A',
 					note: '',
 				}}
+				showEdit={isApplicant}
 			/>
 		</ol>
 	);
