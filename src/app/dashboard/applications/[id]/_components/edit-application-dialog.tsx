@@ -2,8 +2,10 @@ import { valibotResolver } from '@hookform/resolvers/valibot';
 import { DialogTitle } from '@radix-ui/react-dialog';
 import { Edit } from 'lucide-react';
 import { useAction } from 'next-safe-action/hooks';
+import { pick } from 'radash';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import * as v from 'valibot';
 
 import { Application } from '~/app/dashboard/_data/applications';
 import { Button } from '~/components/ui/button';
@@ -38,6 +40,17 @@ import { updateApplicationSchema } from '~/schemas';
 
 import { updateApplication } from '../../_actions/update-application';
 
+const FIELDS = [
+	'company',
+	'jobTitle',
+	'location',
+	'companyType',
+	'referred',
+	'source',
+	'note',
+] as const satisfies Array<keyof v.InferInput<typeof updateApplicationSchema>>;
+const schema = v.pick(updateApplicationSchema, FIELDS);
+
 export const EditApplicationDialog = ({
 	application,
 }: {
@@ -46,8 +59,8 @@ export const EditApplicationDialog = ({
 	const [open, setOpen] = useState(false);
 
 	const form = useForm({
-		resolver: valibotResolver(updateApplicationSchema),
-		defaultValues: application,
+		resolver: valibotResolver(schema),
+		defaultValues: pick(application, FIELDS),
 	});
 	const action = useAction(updateApplication, {
 		onSuccess: () => {
@@ -56,7 +69,7 @@ export const EditApplicationDialog = ({
 	});
 
 	const submit = form.handleSubmit((data) => {
-		action.execute(data);
+		action.execute({ id: application.id, ...data });
 	});
 
 	return (
