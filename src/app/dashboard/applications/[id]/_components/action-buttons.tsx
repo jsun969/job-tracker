@@ -1,10 +1,8 @@
 'use client';
 
-import { Trash2 } from 'lucide-react';
-
 import { Application } from '~/app/dashboard/_data/applications';
-import { Button } from '~/components/ui/button';
 
+import { DeleteApplicationDialog } from './delete-application-dialog';
 import { EditApplicationDialog } from './edit-application-dialog';
 
 export const ActionButtons = ({
@@ -14,9 +12,7 @@ export const ActionButtons = ({
 }) => {
 	return (
 		<div className="flex gap-2">
-			<Button size="icon" variant="danger">
-				<Trash2 />
-			</Button>
+			<DeleteApplicationDialog id={application.id} />
 			<EditApplicationDialog application={application} />
 		</div>
 	);

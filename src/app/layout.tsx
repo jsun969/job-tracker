@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Outfit } from 'next/font/google';
+import { Toaster } from 'sonner';
 
 import './globals.css';
 
@@ -15,7 +16,18 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 	return (
 		<html lang="en">
-			<body className={`${outfitSans.className} antialiased`}>{children}</body>
+			<body className={`${outfitSans.className} antialiased`}>
+				<Toaster
+					position="top-center"
+					richColors
+					toastOptions={{
+						classNames: {
+							toast: outfitSans.className,
+						},
+					}}
+				/>
+				{children}
+			</body>
 		</html>
 	);
 };
