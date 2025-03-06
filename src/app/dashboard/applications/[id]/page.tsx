@@ -87,7 +87,7 @@ const ApplicationDetailPage = async ({
 				{isApplicant && (
 					<div className="flex justify-between md:flex-col md:items-end">
 						<ActionButtons application={application} />
-						<ShareSwitch shared={application.shared} />
+						<ShareSwitch shared={application.shared} id={application.id} />
 					</div>
 				)}
 			</div>
