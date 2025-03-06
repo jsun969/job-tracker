@@ -1,7 +1,9 @@
+import { InferSelectModel } from 'drizzle-orm';
 import { cache } from 'react';
 
 import { ApplicationCategory, ApplicationProcess } from '~/constants';
 import { db } from '~/db';
+import { applicationsTable } from '~/db/schema';
 
 const _getApplication = async (userId: string) => {
 	const applications = await db.query.applicationsTable.findMany({
@@ -33,6 +35,7 @@ const _getApplication = async (userId: string) => {
 };
 export const getApplication = cache(_getApplication);
 
+export type Application = InferSelectModel<typeof applicationsTable>;
 export type ApplicationWithMostRecentStatus = Awaited<
 	ReturnType<typeof getApplication>
 >[number];
