@@ -178,7 +178,7 @@ export const EditApplicationDialog = ({
 									</FormControl>
 									<FormDescription>
 										Can be a URL (starting with https or http) or the name of an
-										application (e.g., LinkedIn, Seek, Indeed, etc.)
+										application (e.g. LinkedIn, Seek, Indeed, etc.)
 									</FormDescription>
 									<FormMessage />
 								</FormItem>
