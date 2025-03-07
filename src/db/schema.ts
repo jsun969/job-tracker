@@ -1,7 +1,6 @@
 import { relations } from 'drizzle-orm';
 import {
 	boolean,
-	date,
 	pgEnum,
 	pgTable,
 	smallserial,
@@ -29,8 +28,8 @@ export const applicationsTable = pgTable('applications', {
 	source: text().notNull(),
 	location: text().notNull(),
 	referred: boolean().notNull(),
-	appliedDate: date({ mode: 'date' }).notNull(),
-	closedDate: date({ mode: 'date' }),
+	appliedDate: timestamp().notNull(),
+	closedDate: timestamp(),
 	status: applicationStatusEnum().default('Ongoing').notNull(),
 	note: text().default('').notNull(),
 	shared: boolean().default(false).notNull(),
