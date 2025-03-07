@@ -6,10 +6,10 @@ import { getFavicon } from '~/utils/get-favicon';
 import { getUser } from '~/utils/get-user';
 import { isLink } from '~/utils/is-link';
 
-import { ActionButtons } from './_components/action-buttons';
-import { InterviewTimeline } from './_components/interview-timeline';
-import { ShareSwitch } from './_components/share-switch';
-import { TimelineActions } from './_components/timeline-actions';
+import { ActionButtons } from './_components/application/action-buttons';
+import { ShareSwitch } from './_components/application/share-switch';
+import { InterviewTimeline } from './_components/interview/interview-timeline';
+import { TimelineActions } from './_components/interview/timeline-actions';
 
 const ApplicationDetailPage = async ({
 	params,

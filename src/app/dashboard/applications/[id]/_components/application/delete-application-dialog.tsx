@@ -16,7 +16,7 @@ import {
 } from '~/components/ui/alert-dialog';
 import { Button } from '~/components/ui/button';
 
-import { deleteApplication } from '../../_actions/delete-application';
+import { deleteApplication } from '../../../_actions/delete-application';
 
 export const DeleteApplicationDialog = ({ id }: { id: string }) => {
 	const [open, setOpen] = useState(false);

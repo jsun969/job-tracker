@@ -37,7 +37,7 @@ import { Textarea } from '~/components/ui/textarea';
 import { COMPANY_TYPES } from '~/constants';
 import { updateApplicationSchema } from '~/schemas';
 
-import { updateApplication } from '../../_actions/update-application';
+import { updateApplication } from '../../../_actions/update-application';
 
 const FIELDS = [
 	'company',

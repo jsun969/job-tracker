@@ -5,7 +5,7 @@ import { useOptimisticAction } from 'next-safe-action/hooks';
 import { Label } from '~/components/ui/label';
 import { Switch } from '~/components/ui/switch';
 
-import { updateApplication } from '../../_actions/update-application';
+import { updateApplication } from '../../../_actions/update-application';
 
 interface ShareSwitchProps {
 	shared: boolean;
