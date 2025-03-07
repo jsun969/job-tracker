@@ -3,7 +3,7 @@ import { APPLICATION_CATEGORY_ICONS, ApplicationCategory } from '~/constants';
 import { getUser } from '~/utils/get-user';
 
 import { getCategorizedApplications } from '../_data/applications';
-import { Applications } from './_components/applications';
+import { ApplicationCard } from './_components/applicaiton-card';
 
 const ApplicationsPage = async () => {
 	const user = await getUser();
@@ -26,7 +26,14 @@ const ApplicationsPage = async () => {
 								<Icon className="size-6" /> {category}
 							</h2>
 							<Separator className="my-4" />
-							<Applications applications={applications} />
+							<div className="grid grid-cols-[repeat(auto-fit,_minmax(20rem,_1fr))] gap-2">
+								{applications.map((application) => (
+									<ApplicationCard
+										application={application}
+										key={application.id}
+									/>
+								))}
+							</div>
 						</div>
 					);
 				},
