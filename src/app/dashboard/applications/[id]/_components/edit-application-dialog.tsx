@@ -13,7 +13,6 @@ import { Checkbox } from '~/components/ui/checkbox';
 import {
 	Dialog,
 	DialogContent,
-	DialogFooter,
 	DialogHeader,
 	DialogTrigger,
 } from '~/components/ui/dialog';
@@ -86,12 +85,12 @@ export const EditApplicationDialog = ({
 							Edit Application
 						</DialogTitle>
 					</DialogHeader>
-					<form onSubmit={submit} className="grid grid-cols-6 gap-x-2 gap-y-2">
+					<form onSubmit={submit} className="grid grid-cols-4 gap-x-2 gap-y-2">
 						<FormField
 							control={form.control}
 							name="company"
 							render={({ field }) => (
-								<FormItem className="col-span-3">
+								<FormItem className="col-span-2">
 									<FormLabel>Company</FormLabel>
 									<FormControl>
 										<Input {...field} />
@@ -104,7 +103,7 @@ export const EditApplicationDialog = ({
 							control={form.control}
 							name="jobTitle"
 							render={({ field }) => (
-								<FormItem className="col-span-3">
+								<FormItem className="col-span-2">
 									<FormLabel>Job Title</FormLabel>
 									<FormControl>
 										<Input {...field} />
@@ -117,7 +116,7 @@ export const EditApplicationDialog = ({
 							control={form.control}
 							name="location"
 							render={({ field }) => (
-								<FormItem className="col-span-3">
+								<FormItem className="col-span-2">
 									<FormLabel>Location</FormLabel>
 									<FormControl>
 										<Input {...field} />
@@ -152,26 +151,9 @@ export const EditApplicationDialog = ({
 						/>
 						<FormField
 							control={form.control}
-							name="referred"
-							render={({ field }) => (
-								<FormItem className="col-span-1">
-									<FormLabel>Referred</FormLabel>
-									<FormControl>
-										<Checkbox
-											className="block"
-											checked={field.value}
-											onCheckedChange={field.onChange}
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-						<FormField
-							control={form.control}
 							name="source"
 							render={({ field }) => (
-								<FormItem className="col-span-6">
+								<FormItem className="col-span-4">
 									<FormLabel>Source</FormLabel>
 									<FormControl>
 										<Input {...field} />
@@ -188,7 +170,7 @@ export const EditApplicationDialog = ({
 							control={form.control}
 							name="note"
 							render={({ field }) => (
-								<FormItem className="col-span-6">
+								<FormItem className="col-span-4">
 									<FormLabel>Note</FormLabel>
 									<FormControl>
 										<Textarea className="h-36 resize-none" {...field} />
@@ -197,11 +179,27 @@ export const EditApplicationDialog = ({
 								</FormItem>
 							)}
 						/>
-						<DialogFooter className="col-span-6 mt-4">
+						<div className="col-span-4 mt-4 flex justify-between">
+							<FormField
+								control={form.control}
+								name="referred"
+								render={({ field }) => (
+									<FormItem className="flex items-center gap-2 space-y-0">
+										<FormLabel>Referred</FormLabel>
+										<FormControl>
+											<Checkbox
+												checked={field.value}
+												onCheckedChange={field.onChange}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
 							<Button type="submit" loading={action.isPending}>
 								Save changes
 							</Button>
-						</DialogFooter>
+						</div>
 					</form>
 				</Form>
 			</DialogContent>
