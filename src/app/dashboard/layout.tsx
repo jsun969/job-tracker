@@ -1,6 +1,9 @@
+import { FilePlus2 } from 'lucide-react';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 import { AppSidebar } from '~/app/dashboard/_components/app-sidebar';
+import { Button } from '~/components/ui/button';
 import { Separator } from '~/components/ui/separator';
 import {
 	SidebarInset,
@@ -26,12 +29,17 @@ const DashboardLayout = async ({
 			/>
 			<SidebarInset>
 				<header className="sticky top-0 flex h-16 shrink-0 items-center gap-2 border-b bg-background transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-					<div className="flex items-center gap-2 px-4">
+					<div className="flex w-full items-center gap-2 px-4">
 						<SidebarTrigger className="-ml-1" />
 						<Separator orientation="vertical" className="mr-2 h-4" />
-						<div className="text-sm text-secondary-foreground">
-							G&apos;day, {user.name}!
+						<div className="grow text-sm text-secondary-foreground">
+							G&apos;day, {user.name}! 👋
 						</div>
+						<Button variant="outline" asChild>
+							<Link href="/dashboard/applications/new">
+								<FilePlus2 /> New Application
+							</Link>
+						</Button>
 					</div>
 				</header>
 				<div className="p-4">{children}</div>
