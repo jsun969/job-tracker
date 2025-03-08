@@ -28,13 +28,10 @@ import {
 } from '~/components/ui/select';
 import { Textarea } from '~/components/ui/textarea';
 import { COMPANY_TYPES } from '~/constants';
-import { time } from '~/lib/time';
 import { insertApplicationSchema } from '~/schemas';
+import { convertDateTimeLocalString } from '~/utils/convert-date-time-local-string';
 
 import { createApplication } from '../../_actions/create-application';
-
-const convertDateTimeLocalString = (date: Date) =>
-	time(date).format('YYYY-MM-DDTHH:mm');
 
 const FIELDS = [
 	'company',

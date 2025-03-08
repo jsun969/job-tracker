@@ -106,7 +106,7 @@ const ApplicationDetailPage = async ({
 					application={application}
 					isApplicant={isApplicant}
 				/>
-				{isApplicant && <TimelineActions />}
+				{isApplicant && <TimelineActions id={application.id} />}
 			</div>
 		</div>
 	);

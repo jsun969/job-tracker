@@ -1,6 +1,7 @@
 import {
 	CalendarArrowUp,
 	CircleSlash,
+	CircleX,
 	FileCode,
 	FilePen,
 	Ghost,
@@ -11,7 +12,6 @@ import {
 	Search,
 	Speech,
 	Sticker,
-	X,
 } from 'lucide-react';
 
 export const GITHUB_LINK = 'https://github.com/jsun969/job-tracker';
@@ -22,6 +22,7 @@ export const APPLICATION_STATUSES = [
 	'Rejected',
 	'Offer',
 ] as const;
+export type ApplicationStatus = (typeof APPLICATION_STATUSES)[number];
 
 export const INTERVIEW_TYPES = [
 	'OA',
@@ -30,6 +31,7 @@ export const INTERVIEW_TYPES = [
 	'Technical',
 	'Other',
 ] as const;
+export type InterviewType = (typeof INTERVIEW_TYPES)[number];
 
 export const COMPANY_TYPES = [
 	'FAANG',
@@ -47,16 +49,13 @@ export const COMPANY_TYPE_COLORS = {
 	Other: '#FD99B3',
 } as const satisfies Record<(typeof COMPANY_TYPES)[number], string>;
 
-export type ApplicationProcess =
-	| 'Apply'
-	| (typeof APPLICATION_STATUSES)[number]
-	| (typeof INTERVIEW_TYPES)[number];
+export type ApplicationProcess = 'Apply' | ApplicationStatus | InterviewType;
 
 export const APPLICATION_PROCESS_ICONS = {
 	Apply: FilePen,
 	Ongoing: Search,
 	Ghosted: Ghost,
-	Rejected: X,
+	Rejected: CircleX,
 	Offer: Sticker,
 	OA: PencilLine,
 	HR: Speech,
