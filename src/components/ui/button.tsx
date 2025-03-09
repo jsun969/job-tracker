@@ -55,12 +55,16 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 		const Comp = asChild ? Slot : 'button';
 
 		if (loading) {
-			props.children = (
-				<>
-					<Loader2 className="animate-spin" />
-					{props.children}
-				</>
-			);
+			if (size === 'icon' || size === 'smIcon') {
+				props.children = <Loader2 className="animate-spin" />;
+			} else {
+				props.children = (
+					<>
+						<Loader2 className="animate-spin" />
+						{props.children}
+					</>
+				);
+			}
 		}
 
 		return (

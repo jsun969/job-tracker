@@ -2,31 +2,45 @@
 
 import { InferSelectModel } from 'drizzle-orm';
 import { Edit, Trash2 } from 'lucide-react';
+import { useAction } from 'next-safe-action/hooks';
+import { useState } from 'react';
+import { toast } from 'sonner';
 
+import { Application } from '~/app/dashboard/_data/applications';
 import { Button } from '~/components/ui/button';
 import {
 	APPLICATION_PROCESS_ICONS,
 	ApplicationProcess,
 	TIME_FORMAT,
 } from '~/constants';
-import { applicationsTable, interviewsTable } from '~/db/schema';
+import { interviewsTable } from '~/db/schema';
 import { time } from '~/lib/time';
 import { humanizeDurationFromNow } from '~/utils/humanize-duration-from-now';
 import { cn } from '~/utils/ui';
 
+import { updateApplication } from '../../../_actions/update-application';
+import { EditApplyDialog } from './dialogs';
+
 type Interview = InferSelectModel<typeof interviewsTable>;
+type TimelineInterview = Omit<Interview, 'type'> & { type: ApplicationProcess };
 
 interface TimelineItemProps {
-	interview: Omit<Interview, 'type'> & { type: ApplicationProcess };
+	interview: TimelineInterview;
 	start?: boolean;
 	showEdit?: boolean;
 	showDelete?: boolean;
+	onDelete?: () => void;
+	onEdit?: () => void;
+	deleteLoading?: boolean;
 }
 export const InterviewTimelineItem = ({
 	start,
 	interview,
 	showEdit,
 	showDelete,
+	onDelete,
+	onEdit,
+	deleteLoading,
 }: TimelineItemProps) => {
 	const ProcessIcon = APPLICATION_PROCESS_ICONS[interview.type];
 	const showActions = showEdit || showDelete;
@@ -45,12 +59,17 @@ export const InterviewTimelineItem = ({
 				{showActions && (
 					<div className="mt-2 flex gap-1">
 						{showDelete && (
-							<Button size="smIcon" variant="danger">
+							<Button
+								size="smIcon"
+								variant="danger"
+								onClick={onDelete}
+								loading={deleteLoading}
+							>
 								<Trash2 />
 							</Button>
 						)}
 						{showEdit && (
-							<Button size="smIcon" variant="outline">
+							<Button size="smIcon" variant="outline" onClick={onEdit}>
 								<Edit />
 							</Button>
 						)}
@@ -73,7 +92,7 @@ export const InterviewTimelineItem = ({
 
 interface TimelineProps {
 	interviews: Array<Interview>;
-	application: InferSelectModel<typeof applicationsTable>;
+	application: Application;
 	isApplicant: boolean;
 }
 export const InterviewTimeline = ({
@@ -81,38 +100,67 @@ export const InterviewTimeline = ({
 	application,
 	isApplicant,
 }: TimelineProps) => {
+	const applyData: TimelineInterview = {
+		date: application.appliedDate,
+		type: 'Apply',
+		id: -1,
+		applicationId: 'N/A',
+		note: '',
+	};
+	const closeData: TimelineInterview = {
+		date: application.closedDate ?? new Date(),
+		type: application.status,
+		id: -2,
+		applicationId: 'N/A',
+		note: '',
+	};
+
+	const deleteCloseAction = useAction(updateApplication, {
+		onSuccess: () => {
+			toast.info('Close status removed');
+		},
+	});
+
+	const [isEditApplyDialogOpen, setIsEditApplyDialogOpen] = useState(false);
+
 	return (
-		<ol className="space-y-4">
-			{application.status !== 'Ongoing' && (
-				<InterviewTimelineItem
-					interview={{
-						date: application.closedDate ?? new Date(),
-						type: application.status,
-						id: -2,
-						applicationId: 'N/A',
-						note: '',
-					}}
-				/>
-			)}
-			{interviews.map((interview) => (
-				<InterviewTimelineItem
-					key={interview.id}
-					interview={interview}
-					showEdit={isApplicant}
-					showDelete={isApplicant}
-				/>
-			))}
-			<InterviewTimelineItem
-				start
-				interview={{
-					date: application.appliedDate,
-					type: 'Apply',
-					id: -1,
-					applicationId: 'N/A',
-					note: '',
-				}}
-				showEdit={isApplicant}
+		<>
+			<EditApplyDialog
+				id={application.id}
+				open={isEditApplyDialogOpen}
+				onOpenChange={setIsEditApplyDialogOpen}
+				appliedDate={application.appliedDate}
 			/>
-		</ol>
+			<ol className="space-y-4">
+				{application.status !== 'Ongoing' && (
+					<InterviewTimelineItem
+						interview={closeData}
+						showDelete={isApplicant}
+						onDelete={() => {
+							deleteCloseAction.execute({
+								id: application.id,
+								closedDate: null,
+								status: 'Ongoing',
+							});
+						}}
+						deleteLoading={deleteCloseAction.isPending}
+					/>
+				)}
+				{interviews.map((interview) => (
+					<InterviewTimelineItem
+						key={interview.id}
+						interview={interview}
+						showEdit={isApplicant}
+						showDelete={isApplicant}
+					/>
+				))}
+				<InterviewTimelineItem
+					start
+					interview={applyData}
+					showEdit={isApplicant}
+					onEdit={() => setIsEditApplyDialogOpen(true)}
+				/>
+			</ol>
+		</>
 	);
 };
