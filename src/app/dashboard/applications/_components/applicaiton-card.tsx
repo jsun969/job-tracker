@@ -12,7 +12,6 @@ import {
 } from '~/constants';
 import { time } from '~/lib/time';
 import { getFavicon } from '~/utils/get-favicon';
-import { humanizeDurationFromNow } from '~/utils/humanize-duration-from-now';
 import { isLink } from '~/utils/is-link';
 import { cn } from '~/utils/ui';
 
@@ -87,7 +86,7 @@ export const ApplicationCard = ({
 					</div>
 					<div className="text-muted-foreground">
 						{time(application.mostRecentStatus.date).format(TIME_FORMAT)} (
-						{humanizeDurationFromNow(application.mostRecentStatus.date)})
+						{time(application.mostRecentStatus.date).fromNow()})
 					</div>
 				</div>
 			</Link>

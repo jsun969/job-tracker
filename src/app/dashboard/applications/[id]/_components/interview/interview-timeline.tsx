@@ -15,7 +15,6 @@ import {
 } from '~/constants';
 import { interviewsTable } from '~/db/schema';
 import { time } from '~/lib/time';
-import { humanizeDurationFromNow } from '~/utils/humanize-duration-from-now';
 import { cn } from '~/utils/ui';
 
 import { updateApplication } from '../../../_actions/update-application';
@@ -55,7 +54,7 @@ export const InterviewTimelineItem = ({
 		>
 			<div className="flex flex-col items-end text-end text-sm font-medium text-secondary-foreground">
 				<div>{time(interview.date).format(TIME_FORMAT)}</div>
-				<div>({humanizeDurationFromNow(interview.date)})</div>
+				<div>({time(interview.date).fromNow()})</div>
 				{showActions && (
 					<div className="mt-2 flex gap-1">
 						{showDelete && (
