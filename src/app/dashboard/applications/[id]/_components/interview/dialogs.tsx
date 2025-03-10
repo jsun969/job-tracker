@@ -5,7 +5,10 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import * as v from 'valibot';
 
-import { DatetimePicker } from '~/components/datetime-picker';
+import {
+	AdvancedDatetimePicker,
+	DatetimePicker,
+} from '~/components/datetime-picker';
 import { Button } from '~/components/ui/button';
 import {
 	Dialog,
@@ -256,7 +259,7 @@ export const EditInterviewDialog = ({
 								<FormItem>
 									<FormLabel>Date</FormLabel>
 									<FormControl>
-										<DatetimePicker allowFuture {...field} />
+										<AdvancedDatetimePicker {...field} />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -371,7 +374,7 @@ export const CreateInterviewDialog = ({
 								<FormItem>
 									<FormLabel>Date</FormLabel>
 									<FormControl>
-										<DatetimePicker allowFuture {...field} />
+										<AdvancedDatetimePicker {...field} />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
