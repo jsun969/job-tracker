@@ -35,7 +35,7 @@ const AppSidebarHeader = () => {
 			<SidebarMenu>
 				<SidebarMenuItem>
 					<SidebarMenuButton size="lg" asChild>
-						<div>
+						<div className="select-none">
 							<div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
 								<BriefcaseBusiness className="size-4" />
 							</div>
