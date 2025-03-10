@@ -173,7 +173,7 @@ export const EditApplicationDialog = ({
 								<FormItem className="col-span-4">
 									<FormLabel>Note</FormLabel>
 									<FormControl>
-										<Textarea className="h-36 resize-none" {...field} />
+										<Textarea className="h-36" {...field} />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
