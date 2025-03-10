@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import { Outfit } from 'next/font/google';
 import { Toaster } from 'sonner';
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 	return (
 		<html lang="en">
+			<Analytics />
 			<body className={`${outfitSans.className} antialiased`}>
 				<Toaster
 					position="top-center"
