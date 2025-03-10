@@ -26,14 +26,20 @@ const ApplicationsPage = async () => {
 								<Icon className="size-6" /> {category}
 							</h2>
 							<Separator className="my-4" />
-							<div className="grid grid-cols-[repeat(auto-fill,_minmax(20rem,_1fr))] gap-2">
-								{applications.map((application) => (
-									<ApplicationCard
-										application={application}
-										key={application.id}
-									/>
-								))}
-							</div>
+							{applications.length === 0 ? (
+								<p className="select-none text-center text-4xl font-bold opacity-20">
+									Nothing Here 🧐
+								</p>
+							) : (
+								<div className="grid grid-cols-[repeat(auto-fill,_minmax(20rem,_1fr))] gap-2">
+									{applications.map((application) => (
+										<ApplicationCard
+											application={application}
+											key={application.id}
+										/>
+									))}
+								</div>
+							)}
 						</div>
 					);
 				},
