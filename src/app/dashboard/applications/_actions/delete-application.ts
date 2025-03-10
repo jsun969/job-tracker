@@ -10,7 +10,7 @@ import { actionClient } from '~/lib/safe-action';
 import { getUser } from '~/utils/get-user';
 
 const schema = v.object({
-	id: v.string(),
+	id: v.pipe(v.string(), v.uuid()),
 });
 
 export const deleteApplication = actionClient
