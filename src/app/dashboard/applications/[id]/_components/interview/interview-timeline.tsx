@@ -84,7 +84,9 @@ export const InterviewTimelineItem = ({
 			</div>
 			<div>
 				<h3 className="font-semibold">{interview.type}</h3>
-				<p className="text-sm text-secondary-foreground">{interview.note}</p>
+				<p className="whitespace-pre-wrap text-sm text-secondary-foreground">
+					{interview.note}
+				</p>
 			</div>
 		</li>
 	);
