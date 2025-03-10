@@ -68,6 +68,7 @@ const appSeed = async () => {
 			with: { interviewsTable: 3 },
 			count: 66,
 		},
+		// FIXME: ID will be duplicated after seeding interviews
 		interviewsTable: {
 			columns: {
 				// Somehow this enum needs to specify values

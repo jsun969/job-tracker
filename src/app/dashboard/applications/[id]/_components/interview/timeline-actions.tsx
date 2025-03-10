@@ -12,7 +12,7 @@ import {
 } from '~/components/ui/dropdown-menu';
 import { APPLICATION_PROCESS_ICONS, ApplicationStatus } from '~/constants';
 
-import { CloseApplicationDialog } from './dialogs';
+import { CloseApplicationDialog, CreateInterviewDialog } from './dialogs';
 
 export type CloseStatus = Exclude<ApplicationStatus, 'Ongoing'>;
 
@@ -20,26 +20,39 @@ export const TimelineActions = ({ id }: { id: string }) => {
 	const RejectedIcon = APPLICATION_PROCESS_ICONS.Rejected;
 	const GhostedIcon = APPLICATION_PROCESS_ICONS.Ghosted;
 
-	const [isDialogOpen, setIsDialogOpen] = useState(false);
+	const [isCloseApplicationDialogOpen, setIsCloseApplicationDialogOpen] =
+		useState(false);
 	const [finalizingStatus, setFinalizingStatus] =
 		useState<CloseStatus>('Offer');
 	const openDialog = (type: CloseStatus) => {
 		setFinalizingStatus(type);
-		setIsDialogOpen(true);
+		setIsCloseApplicationDialogOpen(true);
 	};
+
+	const [isCreateInterviewDialogOpen, setIsCreateInterviewDialogOpen] =
+		useState(false);
 
 	return (
 		<>
 			<CloseApplicationDialog
 				status={finalizingStatus}
-				open={isDialogOpen}
-				onOpenChange={setIsDialogOpen}
+				open={isCloseApplicationDialogOpen}
+				onOpenChange={setIsCloseApplicationDialogOpen}
 				id={id}
 			/>
+			<CreateInterviewDialog
+				open={isCreateInterviewDialogOpen}
+				onOpenChange={setIsCreateInterviewDialogOpen}
+				applicationId={id}
+			/>
 			<div className="flex flex-col items-center justify-between gap-2 md:flex-row">
-				<Button variant="outline" size="lg">
+				<Button
+					variant="outline"
+					size="lg"
+					onClick={() => setIsCreateInterviewDialogOpen(true)}
+				>
 					<Clock />
-					Add Event
+					Add Interview
 				</Button>
 				<div className="flex gap-2">
 					<DropdownMenu>

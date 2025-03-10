@@ -3,7 +3,7 @@ import {
 	boolean,
 	pgEnum,
 	pgTable,
-	smallserial,
+	serial,
 	text,
 	timestamp,
 	uuid,
@@ -48,7 +48,7 @@ export const applicationsRelations = relations(
 
 export const interviewTypeEnum = pgEnum('interview_type', INTERVIEW_TYPES);
 export const interviewsTable = pgTable('interviews', {
-	id: smallserial().primaryKey(),
+	id: serial().primaryKey(),
 	date: timestamp().notNull(),
 	type: interviewTypeEnum().notNull(),
 	note: text(),

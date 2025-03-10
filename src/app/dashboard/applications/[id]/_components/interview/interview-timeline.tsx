@@ -17,10 +17,11 @@ import { interviewsTable } from '~/db/schema';
 import { time } from '~/lib/time';
 import { cn } from '~/utils/ui';
 
+import { deleteInterview } from '../../../_actions/delete-interview';
 import { updateApplication } from '../../../_actions/update-application';
-import { EditApplyDialog } from './dialogs';
+import { EditApplyDialog, EditInterviewDialog } from './dialogs';
 
-type Interview = InferSelectModel<typeof interviewsTable>;
+export type Interview = InferSelectModel<typeof interviewsTable>;
 type TimelineInterview = Omit<Interview, 'type'> & { type: ApplicationProcess };
 
 interface TimelineItemProps {
@@ -120,6 +121,35 @@ export const InterviewTimeline = ({
 		},
 	});
 
+	const [deletingInterviewIds, setDeletingInterviewIds] = useState<Set<number>>(
+		new Set(),
+	);
+	const deleteInterviewAction = useAction(deleteInterview, {
+		onExecute: ({ input }) => {
+			setDeletingInterviewIds((prev) => new Set(prev).add(input.id));
+		},
+		onSettled: ({ input }) => {
+			setDeletingInterviewIds((prev) => {
+				const newSet = new Set(prev);
+				newSet.delete(input.id);
+				return newSet;
+			});
+		},
+		onSuccess: () => {
+			toast.info('Interview deleted');
+		},
+	});
+
+	const [editingInterview, setEditingInterview] = useState<Interview>({
+		id: -1,
+		date: new Date(),
+		type: 'Other',
+		note: '',
+		applicationId: 'N/A',
+	});
+	const [isEditInterviewDialogOpen, setIsEditInterviewDialogOpen] =
+		useState(false);
+
 	const [isEditApplyDialogOpen, setIsEditApplyDialogOpen] = useState(false);
 
 	return (
@@ -129,6 +159,11 @@ export const InterviewTimeline = ({
 				open={isEditApplyDialogOpen}
 				onOpenChange={setIsEditApplyDialogOpen}
 				appliedDate={application.appliedDate}
+			/>
+			<EditInterviewDialog
+				open={isEditInterviewDialogOpen}
+				onOpenChange={setIsEditInterviewDialogOpen}
+				interview={editingInterview}
 			/>
 			<ol className="space-y-4">
 				{application.status !== 'Ongoing' && (
@@ -151,6 +186,17 @@ export const InterviewTimeline = ({
 						interview={interview}
 						showEdit={isApplicant}
 						showDelete={isApplicant}
+						onDelete={() => {
+							deleteInterviewAction.execute({ id: interview.id });
+						}}
+						deleteLoading={
+							deleteInterviewAction.isPending &&
+							deletingInterviewIds.has(interview.id)
+						}
+						onEdit={() => {
+							setEditingInterview(interview);
+							setIsEditInterviewDialogOpen(true);
+						}}
 					/>
 				))}
 				<InterviewTimelineItem
