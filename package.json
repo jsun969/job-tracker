@@ -13,7 +13,11 @@
 		"db:generate": "drizzle-kit generate",
 		"db:migrate": "drizzle-kit migrate",
 		"db:studio": "drizzle-kit studio",
-		"db:seed": "tsx --env-file=.env.local ./src/db/seed.ts"
+		"db:seed": "tsx --env-file=.env.local ./src/db/seed.ts",
+		"build:worker": "opennextjs-cloudflare",
+		"dev:worker": "wrangler dev --port 8771",
+		"preview:worker": "pnpm run build:worker && pnpm run dev:worker",
+		"deploy:worker": "pnpm run build:worker && wrangler deploy"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^4.1.3",
@@ -53,6 +57,7 @@
 	},
 	"devDependencies": {
 		"@eslint/eslintrc": "^3",
+		"@opennextjs/cloudflare": "^0.5.10",
 		"@trivago/prettier-plugin-sort-imports": "^5.2.2",
 		"@types/node": "^20",
 		"@types/react": "^19",
