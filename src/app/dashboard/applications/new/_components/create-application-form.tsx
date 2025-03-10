@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as v from 'valibot';
 
+import { DatetimePicker } from '~/components/datetime-picker';
 import { Button } from '~/components/ui/button';
 import { Checkbox } from '~/components/ui/checkbox';
 import {
@@ -29,7 +30,6 @@ import {
 import { Textarea } from '~/components/ui/textarea';
 import { COMPANY_TYPES } from '~/constants';
 import { insertApplicationSchema } from '~/schemas';
-import { convertDateTimeLocalString } from '~/utils/convert-date-time-local-string';
 
 import { createApplication } from '../../_actions/create-application';
 
@@ -143,12 +143,7 @@ export const CreateApplicationForm = () => {
 						<FormItem className="col-span-2">
 							<FormLabel>Applied Date</FormLabel>
 							<FormControl>
-								<Input
-									type="datetime-local"
-									value={convertDateTimeLocalString(field.value)}
-									onChange={(e) => field.onChange(new Date(e.target.value))}
-									max={convertDateTimeLocalString(new Date())}
-								/>
+								<DatetimePicker {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
