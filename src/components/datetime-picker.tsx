@@ -36,6 +36,13 @@ export const DatetimePicker = ({
 	);
 };
 
+const getISOString = (date: time.Dayjs) => {
+	try {
+		return date.toISOString();
+	} catch {
+		return 'INVALID';
+	}
+};
 const TIMEZONES = Intl.supportedValuesOf('timeZone');
 const TIMEZONES_BY_CONTINENT = group(TIMEZONES, (tz) => tz.split('/')[0]);
 const CURRENT_TIMEZONE = time.tz.guess();
@@ -50,7 +57,7 @@ export const AdvancedDatetimePicker = ({
 
 	useEffect(() => {
 		onChange(finalDate.toDate());
-	}, [finalDate.toISOString()]);
+	}, [getISOString(finalDate)]);
 
 	return (
 		<div className="grid grid-cols-8 items-center gap-2">
