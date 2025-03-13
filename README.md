@@ -8,11 +8,11 @@ A simple app to track job applications
 
 ## ✨ Features
 
-- Track the different stages of your job applications with timeline
-- Categories to organize your applications (Upcoming, Ongoing, Offer, Closed)
+- Track the different stages of your job applications with a timeline
+- Organise your applications into categories (Upcoming, Ongoing, Offer, Closed)
 - Take notes for each application and interview
-- Set date time easily with the timezone date time picker
-- Share your application with others
+- Set date and time easily with the timezone date-time picker
+- Share your application details with others
 - [Coming soon] Generate a sankey diagram to visualize your job application flow
 - [Coming soon] View other cohorts' job application flow
 - [Coming soon] Search your applications
