@@ -31,19 +31,21 @@ const buildApplicationPath = (
 	interviewTypes: string[],
 	finalStatus: string,
 ): SankeyStage[] => {
-	const orderedInterviews = interviewTypes;
-
 	const stages: SankeyStage[] = ['Apply'];
-	let hasOA = false;
-	let interviewRound = 0;
+	const hasOA = interviewTypes.includes('OA');
+	const interviewRoundCount = interviewTypes.filter(
+		(type) => type !== 'OA',
+	).length;
 
-	for (const interviewType of orderedInterviews) {
-		if (interviewType === 'OA' && !hasOA) {
-			stages.push('OA');
-			hasOA = true;
-			continue;
-		}
-		interviewRound += 1;
+	if (hasOA) {
+		stages.push('OA');
+	}
+
+	for (
+		let interviewRound = 1;
+		interviewRound <= interviewRoundCount;
+		interviewRound += 1
+	) {
 		stages.push(`Interview #${interviewRound}`);
 	}
 
@@ -54,7 +56,10 @@ const buildApplicationPath = (
 		stages[stages.length - 1] !== finalStatus
 	) {
 		stages.push(finalStatus);
-	} else if (finalStatus === 'Ongoing' && stages[stages.length - 1] !== 'Ongoing') {
+	} else if (
+		finalStatus === 'Ongoing' &&
+		stages[stages.length - 1] !== 'Ongoing'
+	) {
 		stages.push('Ongoing');
 	}
 
