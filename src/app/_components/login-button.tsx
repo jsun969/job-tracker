@@ -14,6 +14,8 @@ import {
 } from '~/components/ui/dropdown-menu';
 import { authClient } from '~/lib/auth-client';
 
+import { EmailLogin } from './email-login';
+
 export const LoginButton = () => {
 	const login = async (provider: 'google' | 'discord') => {
 		await authClient.signIn.social({ provider, callbackURL: '/dashboard' });
@@ -25,6 +27,7 @@ export const LoginButton = () => {
 				<Button>Login</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="min-w-fit *:cursor-pointer">
+				<EmailLogin />
 				<DropdownMenuItem onClick={() => login('google')} asChild>
 					<button>
 						<GoogleIcon />
