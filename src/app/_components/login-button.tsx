@@ -42,22 +42,12 @@ export const LoginButton = () => {
 		setIsSubmitting(true);
 
 		try {
-			if (isSignUp) {
-				await authClient.signUp.email({
-					name: name.trim(),
-					email: email.trim(),
-					password,
-					callbackURL: '/dashboard',
-				});
-				toast.success('Account created. Signed in successfully.');
-			} else {
-				await authClient.signIn.email({
-					email: email.trim(),
-					password,
-					callbackURL: '/dashboard',
-				});
-				toast.success('Logged in successfully.');
-			}
+			await authClient.signIn.email({
+				email: email.trim(),
+				password,
+				callbackURL: '/dashboard',
+			});
+			toast.success('Logged in successfully.');
 			setOpen(false);
 		} catch (error) {
 			const message =
@@ -86,6 +76,12 @@ export const LoginButton = () => {
 							<DialogTitle>
 								{isSignUp ? 'Create account' : 'Sign in with email'}
 							</DialogTitle>
+							{isSignUp ? (
+								<p className="text-sm text-amber-600">
+									Email Sign Up is WIP. Please use social media accounts to
+									login.
+								</p>
+							) : null}
 						</DialogHeader>
 						<div className="space-y-4">
 							{isSignUp ? (
@@ -96,6 +92,7 @@ export const LoginButton = () => {
 										value={name}
 										onChange={(event) => setName(event.target.value)}
 										placeholder="Your name"
+										disabled
 									/>
 								</div>
 							) : null}
@@ -107,6 +104,7 @@ export const LoginButton = () => {
 									value={email}
 									onChange={(event) => setEmail(event.target.value)}
 									placeholder="you@example.com"
+									disabled={isSignUp}
 								/>
 							</div>
 							<div className="space-y-2">
@@ -117,12 +115,14 @@ export const LoginButton = () => {
 									value={password}
 									onChange={(event) => setPassword(event.target.value)}
 									placeholder="••••••••"
+									disabled={isSignUp}
 								/>
 							</div>
 							<div className="flex flex-col gap-2 pt-1">
 								<Button
 									onClick={submitEmailAuth}
 									disabled={
+										isSignUp ||
 										isSubmitting ||
 										!email.trim() ||
 										!password ||
