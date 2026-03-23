@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { Sankey, Tooltip } from 'recharts';
-import type { SankeyNodeProps } from 'recharts/types';
+import type { SankeyLinkProps, SankeyNodeProps } from 'recharts/types';
 
 import { ChartContainer, type ChartConfig } from '~/components/ui/chart';
 
@@ -77,6 +77,33 @@ const CustomSankeyNode = (props: SankeyNodeProps) => {
 	);
 };
 
+const CustomSankeyLink = (props: SankeyLinkProps) => {
+	const {
+		payload,
+		sourceX,
+		targetX,
+		sourceY,
+		targetY,
+		sourceControlX,
+		targetControlX,
+		linkWidth,
+	} = props;
+	const targetName = String(payload?.target?.name ?? '');
+	const isToHiddenOngoingNode = targetName === 'Ongoing';
+	const pathD = `M${sourceX},${sourceY}
+		C${sourceControlX},${sourceY} ${targetControlX},${targetY} ${targetX},${targetY}`;
+
+	return (
+		<path
+			d={pathD}
+			stroke={isToHiddenOngoingNode ? 'transparent' : 'hsl(var(--muted-foreground))'}
+			strokeOpacity={isToHiddenOngoingNode ? 0 : 0.35}
+			fill="none"
+			strokeWidth={linkWidth}
+		/>
+	);
+};
+
 export const ApplicationProcessSankeyChart = ({
 	nodes,
 	links,
@@ -114,10 +141,7 @@ export const ApplicationProcessSankeyChart = ({
 				linkCurvature={0.5}
 				iterations={64}
 				node={CustomSankeyNode}
-				link={{
-					stroke: 'hsl(var(--muted-foreground))',
-					strokeOpacity: 0.35,
-				}}
+				link={CustomSankeyLink}
 			>
 				<Tooltip />
 			</Sankey>
