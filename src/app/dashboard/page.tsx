@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { APPLICATION_CATEGORY_ICONS, ApplicationCategory } from '~/constants';
 import { getUser } from '~/utils/get-user';
 
+import { ApplicationProcessSankeyChart } from './_components/application-process-sankey-chart';
+import { getApplicationProcessSankeyData } from './_data/application-process-sankey';
 import { getCategorizedApplications } from './_data/applications';
 
 const DashboardPage = async () => {
@@ -12,6 +14,7 @@ const DashboardPage = async () => {
 
 	// TODO: Use database count query instead of querying all the applications
 	const categorizedApplications = await getCategorizedApplications(user.id);
+	const sankeyData = await getApplicationProcessSankeyData(user.id);
 	const categorizedApplicationsCounts = Object.entries(
 		categorizedApplications,
 	).map(([category, applications]) => {
@@ -53,14 +56,14 @@ const DashboardPage = async () => {
 			</div>
 			<Card className="col-span-4">
 				<CardHeader>
-					<CardTitle>Application Status</CardTitle>
+					<CardTitle>Application Process Flow</CardTitle>
 				</CardHeader>
 				<CardContent>
 					<div className="h-96 w-full">
-						{/* TODO: Add sankey diagram */}
-						<div className="flex h-full items-center justify-center text-muted-foreground">
-							A sankey diagram will be displayed here
-						</div>
+						<ApplicationProcessSankeyChart
+							nodes={sankeyData.nodes}
+							links={sankeyData.links}
+						/>
 					</div>
 				</CardContent>
 			</Card>
