@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import { Badge, badgeVariants } from '~/components/ui/badge';
 import { Card, CardDescription, CardTitle } from '~/components/ui/card';
+import { Checkbox } from '~/components/ui/checkbox';
 import {
 	APPLICATION_PROCESS_ICONS,
 	COMPANY_TYPE_COLORS,
@@ -19,8 +20,14 @@ import { ApplicationWithMostRecentStatus } from '../../_data/applications';
 
 export const ApplicationCard = ({
 	application,
+	selectable = false,
+	selected = false,
+	onSelectedChange,
 }: {
 	application: ApplicationWithMostRecentStatus;
+	selectable?: boolean;
+	selected?: boolean;
+	onSelectedChange?: (checked: boolean) => void;
 }) => {
 	const ProcessIcon =
 		APPLICATION_PROCESS_ICONS[application.mostRecentStatus.status];
@@ -29,13 +36,23 @@ export const ApplicationCard = ({
 	return (
 		<Card className="row-span-3 grid grid-rows-subgrid p-4 transition-shadow has-[>a:hover]:shadow-lg">
 			<div className="flex justify-between">
-				<Badge
-					style={{
-						backgroundColor: COMPANY_TYPE_COLORS[application.companyType],
-					}}
-				>
-					{application.companyType}
-				</Badge>
+				<div className="flex items-center gap-2">
+					{selectable ? (
+						<Checkbox
+							checked={selected}
+							onCheckedChange={(checked) =>
+								onSelectedChange?.(Boolean(checked))
+							}
+						/>
+					) : null}
+					<Badge
+						style={{
+							backgroundColor: COMPANY_TYPE_COLORS[application.companyType],
+						}}
+					>
+						{application.companyType}
+					</Badge>
+				</div>
 				{/* TODO: Show shared status, this solution is not visually appealing  */}
 				{/* {application.shared && <Badge>Shared</Badge>} */}
 				{isLink(application.source) ? (

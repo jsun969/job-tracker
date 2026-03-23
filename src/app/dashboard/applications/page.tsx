@@ -1,9 +1,7 @@
-import { Separator } from '~/components/ui/separator';
-import { APPLICATION_CATEGORY_ICONS, ApplicationCategory } from '~/constants';
 import { getUser } from '~/utils/get-user';
 
 import { getCategorizedApplications } from '../_data/applications';
-import { ApplicationCard } from './_components/applicaiton-card';
+import { ApplicationsSections } from './_components/applications-sections';
 
 const ApplicationsPage = async () => {
 	const user = await getUser();
@@ -12,39 +10,7 @@ const ApplicationsPage = async () => {
 	const categorizedApplications = await getCategorizedApplications(user.id);
 
 	return (
-		<div className="space-y-4">
-			{Object.entries(categorizedApplications).map(
-				([category, applications]) => {
-					const Icon =
-						APPLICATION_CATEGORY_ICONS[category as ApplicationCategory];
-					return (
-						<div key={category}>
-							<h2
-								className="flex scroll-mt-16 items-center gap-2 text-2xl font-bold"
-								id={category}
-							>
-								<Icon className="size-6" /> {category}
-							</h2>
-							<Separator className="my-4" />
-							{applications.length === 0 ? (
-								<p className="select-none text-center text-4xl font-bold opacity-20">
-									Nothing Here 🧐
-								</p>
-							) : (
-								<div className="grid grid-cols-[repeat(auto-fill,_minmax(20rem,_1fr))] gap-2">
-									{applications.map((application) => (
-										<ApplicationCard
-											application={application}
-											key={application.id}
-										/>
-									))}
-								</div>
-							)}
-						</div>
-					);
-				},
-			)}
-		</div>
+		<ApplicationsSections categorizedApplications={categorizedApplications} />
 	);
 };
 
