@@ -37,6 +37,7 @@ const CustomSankeyNode = (props: SankeyNodeProps) => {
 	const { x, y, width, height, payload } = props;
 	const name = String(payload.name ?? '');
 	const nodeCount = Number(payload.value ?? 0);
+	const isHiddenOngoingNode = name === 'Ongoing';
 	const fill =
 		stageColorMap[name] ??
 		(name.startsWith('Interview #')
@@ -55,21 +56,23 @@ const CustomSankeyNode = (props: SankeyNodeProps) => {
 				y={y}
 				width={width}
 				height={height}
-				fill={fill}
-				fillOpacity={0.9}
-				stroke="hsl(var(--border))"
-				strokeWidth={1}
+				fill={isHiddenOngoingNode ? 'transparent' : fill}
+				fillOpacity={isHiddenOngoingNode ? 0 : 0.9}
+				stroke={isHiddenOngoingNode ? 'transparent' : 'hsl(var(--border))'}
+				strokeWidth={isHiddenOngoingNode ? 0 : 1}
 			/>
-			<text
-				x={labelX}
-				y={y + height / 2}
-				dy="0.35em"
-				textAnchor={textAnchor}
-				fontSize={12}
-				fill="hsl(var(--foreground))"
-			>
-				{label}
-			</text>
+			{!isHiddenOngoingNode && (
+				<text
+					x={labelX}
+					y={y + height / 2}
+					dy="0.35em"
+					textAnchor={textAnchor}
+					fontSize={12}
+					fill="hsl(var(--foreground))"
+				>
+					{label}
+				</text>
+			)}
 		</g>
 	);
 };
