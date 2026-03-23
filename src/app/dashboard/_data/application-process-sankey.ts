@@ -4,10 +4,10 @@ type SankeyStage =
 	| 'Apply'
 	| 'OA'
 	| `Interview #${number}`
+	| 'Ongoing'
 	| 'Offer'
 	| 'Rejected'
 	| 'Ghosted';
-const TERMINAL_OUTCOMES = new Set(['Offer', 'Rejected', 'Ghosted']);
 
 export type SankeyNode = { name: SankeyStage };
 export type SankeyLink = { source: number; target: number; value: number };
@@ -23,6 +23,7 @@ const stageRank = (stage: SankeyStage): number => {
 	if (stage === 'Offer') return 100;
 	if (stage === 'Ghosted') return 101;
 	if (stage === 'Rejected') return 102;
+	if (stage === 'Ongoing') return 103;
 	return Number.MAX_SAFE_INTEGER;
 };
 
@@ -53,6 +54,8 @@ const buildApplicationPath = (
 		stages[stages.length - 1] !== finalStatus
 	) {
 		stages.push(finalStatus);
+	} else if (finalStatus === 'Ongoing' && stages[stages.length - 1] !== 'Ongoing') {
+		stages.push('Ongoing');
 	}
 
 	return stages;
@@ -72,9 +75,6 @@ export const getApplicationProcessSankeyData = async (
 	const edgeWeights = new Map<string, number>();
 
 	for (const application of applications) {
-		if (!TERMINAL_OUTCOMES.has(application.status)) {
-			continue;
-		}
 		const interviews = application.interviews.map((interview) =>
 			String(interview.type),
 		);

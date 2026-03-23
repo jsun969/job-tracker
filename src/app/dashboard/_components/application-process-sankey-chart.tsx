@@ -13,6 +13,7 @@ const stageColorMap: Record<string, string> = {
 	Apply: 'hsl(var(--chart-1))',
 	OA: 'hsl(var(--chart-2))',
 	Interview: 'hsl(var(--chart-4))',
+	Ongoing: 'hsl(var(--chart-3))',
 	Offer: 'hsl(142 76% 36%)',
 	Rejected: 'hsl(var(--destructive))',
 	Ghosted: 'hsl(263 70% 50%)',
@@ -95,7 +96,7 @@ export const ApplicationProcessSankeyChart = ({
 	if (links.length === 0) {
 		return (
 			<div className="flex h-full items-center justify-center text-muted-foreground">
-				No completed outcomes yet. Add Offer, Rejected, or Ghosted applications.
+				No process transitions yet.
 			</div>
 		);
 	}
