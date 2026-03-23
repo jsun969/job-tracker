@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import {
 	FaDiscord as DiscordIcon,
 	FaEnvelope as EmailIcon,
@@ -50,6 +50,8 @@ export const LoginButton = () => {
 			password: '',
 		},
 	});
+	const emailValue = useWatch({ control: form.control, name: 'email' });
+	const passwordValue = useWatch({ control: form.control, name: 'password' });
 
 	const login = async (provider: 'google' | 'discord') => {
 		await authClient.signIn.social({ provider, callbackURL: '/dashboard' });
@@ -156,8 +158,8 @@ export const LoginButton = () => {
 										disabled={
 											isSignUp ||
 											form.formState.isSubmitting ||
-											!form.watch('email').trim() ||
-											!form.watch('password')
+											!(emailValue ?? '').trim() ||
+											!(passwordValue ?? '')
 										}
 									>
 										{form.formState.isSubmitting
