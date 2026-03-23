@@ -29,7 +29,7 @@ const DashboardPage = async () => {
 	);
 
 	return (
-		<div className="space-y-4">
+		<div className="flex h-full min-h-0 flex-col gap-4">
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
 				{[
 					{ category: 'Total', count: totalApplicationCount },
@@ -54,12 +54,12 @@ const DashboardPage = async () => {
 					);
 				})}
 			</div>
-			<Card className="col-span-4">
+			<Card className="col-span-4 flex min-h-[28rem] flex-1 flex-col">
 				<CardHeader>
 					<CardTitle>Application Process Flow</CardTitle>
 				</CardHeader>
-				<CardContent>
-					<div className="h-96 w-full">
+				<CardContent className="flex min-h-0 flex-1">
+					<div className="h-full min-h-[24rem] w-full">
 						<ApplicationProcessSankeyChart
 							nodes={sankeyData.nodes}
 							links={sankeyData.links}
